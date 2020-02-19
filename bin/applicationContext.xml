@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 配置扫描器 -->
+	<context:component-scan base-package="com.springstudy.dao, com.springstudy.service" />
+	
+	<!-- 配置数据库相关的数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+		<property name="url" value="127.0.0.1:1521:ORCL"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="triger"></property>
+		<property name="maxActive" value="10"></property>
+		<property name="maxIdle" value="6"></property>
+	</bean>
+	
+	<!-- 配置事务管理器txManager -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 增加对事务的支持 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+
+	<bean id="student" class="com.springstudy.entity.Student">
+		<property name="stuNo" value="2"></property>
+		<property name="stuName" value="ls"></property>
+		<property name="stuAge" value="24"></property>
+	</bean>
+	
+	<bean id="javaCourse" class="com.springstudy.newInstance.JavaCourse" />
+	<bean id="htmlCourse" class="com.springstudy.newInstance.HtmlCourse" />
+	
+	<bean id="teacher" class="com.springstudy.entity.Teacher" p:age="32" p:name="zs">
+		<!-- <property name="name" value="zs"></property>
+		<property name="age" value="32"></property> -->
+		<!-- <constructor-arg name="name" value="zs"></constructor-arg>
+		<constructor-arg name="age" value="32"></constructor-arg> -->
+	</bean>
+	
+	<!-- 可以使用autowire 自动装配属性引用
+		自送装配只使用 对象引用 Ref，比如Course里的teacher对象
+		1. byName, 根据id3和类引用的名字一致
+		2.byType，根据引用类型和容器里的bean理赔
+		3. constructor，
+	 -->
+	<!-- <bean id="course" class="com.springstudy.entity.Course" p:courseName="C#" p:courseHour="100" p:teacher-ref="teacher"> -->
+	<bean id="course" class="com.springstudy.entity.Course" autowire="byName">
+		<property name="courseName" value="java"></property>
+		<property name="courseHour" value="200"></property>
+		<!-- <property name="teacher" ref="teacher"></property> -->
+		<!-- <constructor-arg name="courseName" value="C"></constructor-arg>
+		<constructor-arg name="courseHour" value="100"></constructor-arg>
+		<constructor-arg name="teacher" ref="teacher"></constructor-arg> -->
+	</bean>
+	
+	<bean id="studentDao" class="com.springstudy.dao.impl.StudentDaoImpl">
+	</bean>
+	
+	<bean id="studentService" class="com.springstudy.service.impl.StudentServiceImpl">
+		<property name="studentDao" ref="studentDao"></property>
+	</bean>
+	
+	
+	<!-- 配置前置通知 -->
+	
+	<!-- 前置通知类 -->
+	<bean id="logBefore" class="com.springstudy.aop.LogBefore">
+	</bean>
+	
+	<!-- 后置通知类 -->
+	<bean id="logAfter" class="com.springstudy.aop.LogAfter">
+	</bean>
+	
+	<!-- 将方法所在类和通知类关联 -->
+	<aop:config>
+		<!-- 配置切入点 -->
+		<aop:pointcut expression="execution(public void com.springstudy.service.impl.StudentServiceImpl.deleteStudentByNo(int)) or execution(public void com.springstudy.service.impl.StudentServiceImpl.addStudent(com.springstudy.entity.Student))" id="pointCutBefore"/>
+		<!-- 链接切面和 需通知类 -->
+		<aop:advisor advice-ref="logBefore" pointcut-ref="pointCutBefore"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public void com.springstudy.service.impl.StudentServiceImpl.addStudent(com.springstudy.entity.Student))" id="pointCutAfter"/>
+		<aop:advisor advice-ref="logAfter" pointcut-ref="pointCutAfter"/>
+	</aop:config>
+
+</beans>
