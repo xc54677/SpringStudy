@@ -11,10 +11,11 @@ import com.springstudy.dao.impl.StudentDaoImpl;
 import com.springstudy.entity.Student;
 import com.springstudy.service.IStudentService;
 
-/*@Service("studentService")*/
+@Service("studentService")
 public class StudentServiceImpl implements IStudentService{
 	/*@Autowired
 	@Qualifier("studentDao")*/
+	@Autowired
 	private StudentDaoImpl studentDao;
 
 	//@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
@@ -28,9 +29,9 @@ public class StudentServiceImpl implements IStudentService{
 		studentDao.addStudent(student);
 	}
 
-	public void setStudentDao(StudentDaoImpl studentDao) {
+	/*public void setStudentDao(StudentDaoImpl studentDao) {
 		this.studentDao = studentDao;
-	}
+	}*/
 
 	@Override
 	public void deleteStudentByNo(int number) {

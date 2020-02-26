@@ -64,12 +64,12 @@
 		<constructor-arg name="teacher" ref="teacher"></constructor-arg> -->
 	</bean>
 	
-	<bean id="studentDao" class="com.springstudy.dao.impl.StudentDaoImpl">
+	<!-- <bean id="studentDao" class="com.springstudy.dao.impl.StudentDaoImpl">
 	</bean>
 	
 	<bean id="studentService" class="com.springstudy.service.impl.StudentServiceImpl">
 		<property name="studentDao" ref="studentDao"></property>
-	</bean>
+	</bean> -->
 	
 	
 	<!-- 配置前置通知 -->

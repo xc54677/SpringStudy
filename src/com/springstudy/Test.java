@@ -89,10 +89,16 @@ public class Test {
 		studentService.modifyStudentByNo(1);
 	}
 	
+	public static void testZiDZhujie() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		IStudentService studentService = (IStudentService) context.getBean("studentService");
+		studentService.addStudent(new Student());
+	}
+	
 
 	public static void main(String[] args) {
 		
-		testAopSchema();
+		testZiDZhujie();
 		
 	}
 

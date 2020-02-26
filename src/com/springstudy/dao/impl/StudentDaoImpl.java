@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.springstudy.dao.StudentDao;
 import com.springstudy.entity.Student;
 
-@Repository("studentDao")
+@Repository
 public class StudentDaoImpl implements StudentDao{
 	
 	@Override
