@@ -12,6 +12,7 @@ public class StudentDaoImpl implements StudentDao{
 	@Override
 	public void addStudent(Student student) {
 		System.out.println("增加学生...");
+		//throw new RuntimeException("模拟运行时异常！！！");
 	}
 	
 }

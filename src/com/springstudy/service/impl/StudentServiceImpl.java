@@ -38,4 +38,21 @@ public class StudentServiceImpl implements IStudentService{
 		
 	}
 
+	@Override
+	public void modifyStudentByNo(int number) {
+		System.out.println("根据学号修改学生.....");
+	}
+
+	@Override
+	public void modifyStudentByName(String name) {
+		System.out.println("根据姓名修改学生.....");
+	}
+
+	@Override
+	public void modifyStudentByAge(int age) {
+		System.out.println("根据年龄修改学生.....");
+//		throw new NullPointerException("kong");
+		throw new RuntimeException("测试运行时异常");
+	}
+
 }

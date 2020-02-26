@@ -62,10 +62,37 @@ public class Test {
 		studentService.addStudent(student2);
 	}
 	
+	public static void testAopException() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		Student student2 = (Student) context.getBean("student");
+		IStudentService studentService = (IStudentService) context.getBean("studentService");
+		studentService.addStudent(student2);
+	}
+	
+	public static void testAopAround() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		IStudentService studentService = (IStudentService) context.getBean("studentService");
+		studentService.modifyStudentByNo(1);
+	}
+	
+	public static void testAopAnnotation() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		IStudentService studentService = (IStudentService) context.getBean("studentService");
+		studentService.modifyStudentByName("a");
+		
+		studentService.modifyStudentByAge(11);
+	}
+	
+	public static void testAopSchema() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		IStudentService studentService = (IStudentService) context.getBean("studentService");
+		studentService.modifyStudentByNo(1);
+	}
+	
 
 	public static void main(String[] args) {
 		
-		testAopAfter();
+		testAopSchema();
 		
 	}
 

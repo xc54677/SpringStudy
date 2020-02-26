@@ -6,5 +6,8 @@ public interface IStudentService {
 	
 	void addStudent(Student student);
 	void deleteStudentByNo(int number);
+	void modifyStudentByNo(int number);
+	void modifyStudentByName(String name);
+	void modifyStudentByAge(int age);
 
 }
