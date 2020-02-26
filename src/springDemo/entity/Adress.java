@@ -4,6 +4,15 @@ public class Adress {
 	
 	private String homeAdress;
 	private String schoolAdress;
+	
+	public Adress() {
+	}
+	
+	public Adress(String homeAdress, String schoolAdress) {
+		this.homeAdress = homeAdress;
+		this.schoolAdress = schoolAdress;
+	}
+
 	public String getHomeAdress() {
 		return homeAdress;
 	}

@@ -8,6 +8,20 @@ public class Student {
 	
 	private Adress adress;
 	
+	public Student() {
+	}
+	
+	
+	
+	public Student(int stuNo, String stuName, int stuAge) {
+		super();
+		this.stuNo = stuNo;
+		this.stuName = stuName;
+		this.stuAge = stuAge;
+	}
+
+
+
 	public Adress getAdress() {
 		return adress;
 	}
