@@ -18,6 +18,7 @@ public class Student {
 		this.stuNo = stuNo;
 		this.stuName = stuName;
 		this.stuAge = stuAge;
+		System.out.println("Create Student");
 	}
 
 
@@ -46,7 +47,9 @@ public class Student {
 	public void setStuAge(int stuAge) {
 		this.stuAge = stuAge;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Create Student";
+	}
 }

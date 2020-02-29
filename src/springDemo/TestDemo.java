@@ -11,8 +11,8 @@ public class TestDemo {
 	
 	public static void testAnotation() {
 		ApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
-		Student student = (Student)context.getBean("student");
-		System.out.println(student.getAdress());
+//		Student student = (Student)context.getBean("stu");
+//		System.out.println(student.getAdress());
 		
 		for (String beanName: context.getBeanDefinitionNames()) {
 			System.out.println(beanName);
