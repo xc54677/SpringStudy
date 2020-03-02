@@ -1,4 +1,4 @@
 package springDemo.entity;
 
-public class Banana {
+public class Banana extends Fruit {
 }
