@@ -1,10 +1,12 @@
 package springDemo;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 import org.springframework.core.env.ConfigurableEnvironment;
+import springDemo.component.MyListener3;
 import springDemo.config.MyConfig;
 import springDemo.entity.Student;
 
@@ -36,6 +38,9 @@ public class TestDemo {
 
         Object myXXX = context.getBean("myXXX");
         System.out.println(myXXX);
+
+		MyListener3 event = new MyListener3("my Event");
+		context.publishEvent(event);
 
         ((AnnotationConfigApplicationContext) context).close();
 
