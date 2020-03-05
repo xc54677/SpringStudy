@@ -61,4 +61,12 @@ bean创建方式： 先声明bean  -》 解析（加载）bean --> 创建（实�
 1.自定义类实现抽象类ApplicationEvent
 2.发布自定义的事件 context.publishEvent(new ApplicationEvent("my Event")
 
+Quartz: 定时任务
+任务： 做什么事情
+触发器：定义时间
+调度器：将任务和触发器一一对应
 
+--触发器 CronScheduleBuilder
+Cron表达式：
+6-7个参数，以空格隔开
+秒   分   时   天(月份里的天)    月   天(星期里的天)     (年)
