@@ -142,4 +142,44 @@
 		
 	</aop:config>
 
+
+
+	<bean id="scheduleJobEntity" class="quartzDemo.entity.ScheduleJob">
+		<property name="jobId" value="j001"/>
+		<property name="jobName" value="任务1"/>
+		<property name="jobGroup" value="任务组1"/>
+		<property name="jobStatus" value="1"/>
+		<property name="cronExpression" value="5,10,30,50 * * * * ? *"/>
+		<property name="desc" value="描述..."/>
+	</bean>
+
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="quartzDemo.job.PlanJob">
+        </property>
+        <property name="jobDataMap">
+			<map>
+				<entry key="scheduleJob">
+					<ref bean="scheduleJobEntity"></ref>
+				</entry>
+			</map>
+		</property>
+
+	</bean>
+
+    <!-- 触发器：定义时间规则 -->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobDetail"/>
+        <property name="cronExpression" value="#{scheduleJobEntity.cronExpression}"/>
+    </bean>
+
+    <!-- 调度器 -->
+    <bean id="scheduleFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+
 </beans>

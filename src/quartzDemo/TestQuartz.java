@@ -1,7 +1,11 @@
 package quartzDemo;
 
 import org.quartz.*;
+import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import quartzDemo.job.PlanJob;
 
 import java.text.ParseException;
@@ -13,6 +17,16 @@ import java.util.List;
 public class TestQuartz {
 
     public static void main(String[] args) throws SchedulerException, ParseException {
+        quartzAndSpringTest();
+    }
+
+    public static void quartzAndSpringTest() throws SchedulerException {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        StdScheduler scheduleFactory = (StdScheduler)context.getBean("scheduleFactoryBean");
+        scheduleFactory.start();
+    }
+
+    public static void quartzTest() throws SchedulerException {
         JobBuilder jobBuilder = JobBuilder.newJob(PlanJob.class);
         //产生实际使用的job
         JobDetail jobDetail = jobBuilder.withIdentity("meeting job", "group1").build();
